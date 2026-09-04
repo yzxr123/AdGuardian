@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AdGuardian</string>
+    <string name="service_name">AdGuardian 广告保护</string>
+    <string name="service_description">通用识别第三方 App 中的明确跳过和广告关闭控件  测试版会在本机记录诊断日志</string>
+    <string name="network_service_name">AdGuardian 网络广告过滤</string>
+</resources>
