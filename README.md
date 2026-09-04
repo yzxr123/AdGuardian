@@ -4,9 +4,9 @@ AdGuardian 是一个单 APK 纯本地 Android 广告权益保护项目
 
 许可证  GPL-3.0-or-later
 
-## B4.2 核心变化
+## B4.3 核心变化
 
-B4.2 延续 B4 的通用分层识别架构 并修正原生视觉构建链
+B4.3 延续 B4 的通用分层识别架构 并修正原生视觉构建链
 
 主链路改为
 
@@ -142,13 +142,13 @@ GitHub Actions 会自动下载固定版本的本地视觉依赖
 
 成功后生成
 
-`AdGuardian-B4.2.apk`
+`AdGuardian-B4.3.apk`
 
 APK 硬限制现在是 50 MiB
 
 超过 50 MiB GitHub 构建直接失败
 
-## B4.2 构建修复
+## B4.3 构建修复
 
 - ncnn 20260526 官方 Android 预编译库使用 NDK r29 因此工程同步到 `29.0.14206865`
 - Debug APK 先执行 `assembleDebug` 生成 安装包不再被 lint 阻断
@@ -166,3 +166,5 @@ APK 硬限制现在是 50 MiB
 - Private DNS DoT 专项处理
 
 这些模块不会在 UI 中冒充已经实现
+
+- AndroidX 已启用，因为 ML Kit 中文 OCR 会传递依赖 AndroidX；Jetifier 保持关闭，避免无意义转换。

@@ -1,4 +1,4 @@
-# AdGuardian B4.2 status
+# AdGuardian B4.3 status
 
 Implemented
 
@@ -75,3 +75,5 @@ Not implemented yet
 - DNS over TCP
 - strict Private DNS DoT handling
 - per-UID DNS request attribution
+
+- AndroidX 已启用，因为 ML Kit 中文 OCR 会传递依赖 AndroidX；Jetifier 保持关闭，避免无意义转换。
