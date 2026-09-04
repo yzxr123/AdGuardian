@@ -31,7 +31,7 @@ jobs:
           gradle-version: '8.13'
           cache-disabled: true
 
-      - name: Verify uploaded B4.2 source
+      - name: Verify uploaded B4.3 source
         shell: bash
         run: |
           set -euo pipefail
@@ -39,9 +39,9 @@ jobs:
           test -f tools/fetch_vision_deps.sh
           test -f tools/validate_project.py
           test -f app/src/main/cpp/CMakeLists.txt
-          grep -F "versionName '0.4.2-b4.2'" app/build.gradle
+          grep -F "versionName '0.4.3-b4.3'" app/build.gradle
           grep -F "ndkVersion '29.0.14206865'" app/build.gradle
-          echo "B4.2 source layout verified"
+          echo "B4.3 source layout verified"
 
       - name: Bootstrap Android and build Debug APK
         id: assemble
@@ -50,7 +50,7 @@ jobs:
           set -euo pipefail
           mkdir -p dist
           {
-            echo "===== AdGuardian B4.2 CI ====="
+            echo "===== AdGuardian B4.3 CI ====="
             echo "UTC: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
             echo "Commit: $GITHUB_SHA"
             echo "Java: $(java -version 2>&1 | head -1)"
@@ -81,7 +81,7 @@ jobs:
         if: failure()
         shell: bash
         run: |
-          echo "### AdGuardian B4.2 build failure" >> "$GITHUB_STEP_SUMMARY"
+          echo "### AdGuardian B4.3 build failure" >> "$GITHUB_STEP_SUMMARY"
           if [ -f dist/ci-build.log ]; then
             echo '```text' >> "$GITHUB_STEP_SUMMARY"
             tail -n 300 dist/ci-build.log >> "$GITHUB_STEP_SUMMARY"
@@ -130,18 +130,18 @@ jobs:
         if: success()
         shell: bash
         run: |
-          cp app/build/outputs/apk/debug/app-debug.apk dist/AdGuardian-B4.2.apk
+          cp app/build/outputs/apk/debug/app-debug.apk dist/AdGuardian-B4.3.apk
 
       - name: Report and enforce APK size
         if: success()
         shell: bash
         run: |
-          APK="dist/AdGuardian-B4.2.apk"
+          APK="dist/AdGuardian-B4.3.apk"
           BYTES=$(stat -c%s "$APK")
           MIB=$(awk "BEGIN {printf \"%.3f\", $BYTES/1024/1024}")
           echo "APK size: $BYTES bytes ($MIB MiB)"
           echo "### APK size" >> "$GITHUB_STEP_SUMMARY"
-          echo "AdGuardian-B4.2.apk: **$MIB MiB** ($BYTES bytes)" >> "$GITHUB_STEP_SUMMARY"
+          echo "AdGuardian-B4.3.apk: **$MIB MiB** ($BYTES bytes)" >> "$GITHUB_STEP_SUMMARY"
           if [ "$BYTES" -gt 52428800 ]; then
             echo "APK exceeds the 50 MiB project size ceiling" >&2
             exit 1
@@ -151,7 +151,7 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v7
         with:
-          path: dist/AdGuardian-B4.2.apk
+          path: dist/AdGuardian-B4.3.apk
           if-no-files-found: error
           archive: false
           retention-days: 7
